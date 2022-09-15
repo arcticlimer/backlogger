@@ -13,6 +13,16 @@
   <%= text_input f, :description %>
   <%= error_tag f, :description %>
 
+  <%= label f, :priority %>
+  <%= number_input f, :priority %>
+  <%= error_tag f, :priority %>
+
+  <%= if @operation != :new do %>
+    <%= label f, :done %>
+    <%= checkbox f, :done %>
+    <%= error_tag f, :done %>
+  <% end %>
+
   <div>
     <%= submit "Save" %>
   </div>

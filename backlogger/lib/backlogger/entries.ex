@@ -23,8 +23,10 @@ defmodule Backlogger.Entries do
 
   def list_entries_by_date do
     list_entries()
+    |> Enum.sort_by(&(&1.priority), :desc)
     |> Enum.group_by(&Date.new!(&1.inserted_at.year, &1.inserted_at.month, &1.inserted_at.day))
-    |> Enum.sort_by(fn {k, v} -> k end, &Date.compare(&1, &2) != :lt)
+    |> Enum.sort_by(fn {k, _v} -> k end, &Date.compare(&1, &2) != :lt)
+    |> Enum.map(fn {k, v} -> {k, Enum.sort_by(v, &(&1.done))} end)
   end
 
   @doc """

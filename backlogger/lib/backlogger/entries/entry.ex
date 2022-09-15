@@ -5,6 +5,8 @@ defmodule Backlogger.Entries.Entry do
   schema "entries" do
     field :description, :string
     field :name, :string
+    field :priority, :integer
+    field :done, :boolean
 
     timestamps()
   end
@@ -12,7 +14,7 @@ defmodule Backlogger.Entries.Entry do
   @doc false
   def changeset(entry, attrs) do
     entry
-    |> cast(attrs, [:name, :description])
-    |> validate_required([:name, :description])
+    |> cast(attrs, [:name, :description, :priority, :done])
+    |> validate_required([:name, :description, :priority, :done])
   end
 end

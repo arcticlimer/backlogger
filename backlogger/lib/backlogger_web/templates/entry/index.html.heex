@@ -2,18 +2,22 @@
 
   <%= for {day, entries} <- @entries do %>
     <h1><%= Date.to_string(day) %></h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-          </tr>
-        </thead>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Priority</th>
+          <th>Done?</th>
+        </tr>
+      </thead>
       <tbody>
       <%= for entry <- entries do %>
         <tr>
           <td><%= entry.name %></td>
           <td><%= entry.description %></td>
+          <td><%= entry.priority %></td>
+          <td><%= if entry.done, do: "Yes", else: "No" %></td>
 
           <td>
             <span><%= link "Show", to: Routes.entry_path(@conn, :show, entry) %></span>
@@ -23,6 +27,7 @@
         </tr>
       <% end %>
     </tbody>
-    </table>
-  <% end %>
+  </table>
+<% end %>
+
 <span><%= link "New Entry", to: Routes.entry_path(@conn, :new) %></span>

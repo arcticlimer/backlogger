@@ -11,12 +11,15 @@ defmodule BackloggerWeb.EntryController do
 
   def new(conn, _params) do
     changeset = Entries.change_entry(%Entry{})
-    render(conn, "new.html", changeset: changeset)
+
+    conn
+    |> assign(:operation, action_name(conn))
+    |> render("new.html", changeset: changeset)
   end
 
   def create(conn, %{"entry" => entry_params}) do
     case Entries.create_entry(entry_params) do
-      {:ok, entry} ->
+      {:ok, _entry} ->
         conn
         |> put_flash(:info, "Entry created successfully.")
         |> redirect(to: Routes.entry_path(conn, :new))
@@ -34,7 +37,10 @@ defmodule BackloggerWeb.EntryController do
   def edit(conn, %{"id" => id}) do
     entry = Entries.get_entry!(id)
     changeset = Entries.change_entry(entry)
-    render(conn, "edit.html", entry: entry, changeset: changeset)
+
+    conn
+    |> assign(:operation, action_name(conn))
+    |> render("edit.html", entry: entry, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "entry" => entry_params}) do
