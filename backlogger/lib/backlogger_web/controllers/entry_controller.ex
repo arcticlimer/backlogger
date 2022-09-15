@@ -12,9 +12,7 @@ defmodule BackloggerWeb.EntryController do
   def new(conn, _params) do
     changeset = Entries.change_entry(%Entry{})
 
-    conn
-    |> assign(:operation, action_name(conn))
-    |> render("new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"entry" => entry_params}) do
@@ -38,9 +36,7 @@ defmodule BackloggerWeb.EntryController do
     entry = Entries.get_entry!(id)
     changeset = Entries.change_entry(entry)
 
-    conn
-    |> assign(:operation, action_name(conn))
-    |> render("edit.html", entry: entry, changeset: changeset)
+    render(conn, "edit.html", entry: entry, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "entry" => entry_params}) do
