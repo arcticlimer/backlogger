@@ -1,7 +1,7 @@
 <h1>Listing Entries</h1>
 
   <%= for {day, entries} <- @entries do %>
-    <h1><%= inspect (day) %></h1>
+    <h1><%= Date.to_string(day) %></h1>
       <table>
         <thead>
           <tr>
